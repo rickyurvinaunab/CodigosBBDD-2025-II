@@ -927,3 +927,6 @@ INSERT INTO Actuo_en (id_actor, id_pelicula) VALUES
 (19, 272),
 (108, 155),
 (72, 9);
+
+
+##Com

@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57e6ab9a-9a5c-4a80-bfdc-01f0ea66f804" name="Changes" comment="Change readme.md">
-      <change beforePath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/Codigos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/Codigos/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="57e6ab9a-9a5c-4a80-bfdc-01f0ea66f804" name="Changes" comment="Taller 02">
+      <change afterPath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/sql/cine.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/Postgress/create_cine_db.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/Postgress/create_cine_db.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/Codigos" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II" />
   </component>
   <component name="GithubDefaultAccount">
     <option name="defaultAccountId" value="f3b30ccc-fa86-41c1-80e9-3e756728dee9" />
@@ -37,6 +40,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -65,6 +69,10 @@
       <workItem from="1754018979477" duration="2320000" />
       <workItem from="1754067615513" duration="142000" />
       <workItem from="1755833037717" duration="185000" />
+      <workItem from="1755833243899" duration="1256000" />
+      <workItem from="1756397220567" duration="1000" />
+      <workItem from="1756437420018" duration="1095000" />
+      <workItem from="1756676419241" duration="1422000" />
     </task>
     <task id="LOCAL-00001" summary="Change readme.md">
       <option name="closed" value="true" />
@@ -74,7 +82,23 @@
       <option name="project" value="LOCAL" />
       <updated>1754067643351</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Taller 02">
+      <option name="closed" value="true" />
+      <created>1756437640327</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1756437640327</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Taller 02">
+      <option name="closed" value="true" />
+      <created>1756437913823</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1756437913823</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -82,6 +106,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Change readme.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change readme.md" />
+    <MESSAGE value="Taller 02" />
+    <option name="LAST_COMMIT_MESSAGE" value="Taller 02" />
   </component>
 </project>
