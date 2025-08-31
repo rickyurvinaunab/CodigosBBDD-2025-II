@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="57e6ab9a-9a5c-4a80-bfdc-01f0ea66f804" name="Changes" comment="Clase 05 SQL" />
+    <list default="true" id="57e6ab9a-9a5c-4a80-bfdc-01f0ea66f804" name="Changes" comment="Clase 05 SQL">
+      <change afterPath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/Postgress/delete_tables.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/Postgress/insert_data_cine.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/sql/ingresar_datos_cine.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../../../../OneDrive-UniversidadCatólicadeChile/Documents/UNAB/2025-2/BaseDeDatos/CodigosBBDD-2025-II/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,7 +72,7 @@
       <workItem from="1755833243899" duration="1256000" />
       <workItem from="1756397220567" duration="1000" />
       <workItem from="1756437420018" duration="1095000" />
-      <workItem from="1756676419241" duration="1553000" />
+      <workItem from="1756676419241" duration="1935000" />
     </task>
     <task id="LOCAL-00001" summary="Change readme.md">
       <option name="closed" value="true" />
@@ -101,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756678712042</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Clase 05 SQL">
+      <option name="closed" value="true" />
+      <created>1756678830062</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1756678830062</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
