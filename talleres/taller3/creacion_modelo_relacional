@@ -1,0 +1,256 @@
+-- ==========================================================
+-- Taller 03 SQL - Biblioteca (DDL + INSERTS + CONSULTAS)
+-- PostgreSQL
+-- ==========================================================
+
+-- Limpieza
+DROP TABLE IF EXISTS Multa       CASCADE;
+DROP TABLE IF EXISTS Reserva     CASCADE;
+DROP TABLE IF EXISTS Prestamo    CASCADE;
+DROP TABLE IF EXISTS Ejemplar    CASCADE;
+DROP TABLE IF EXISTS Sucursal    CASCADE;
+DROP TABLE IF EXISTS LibroCategoria CASCADE;
+DROP TABLE IF EXISTS LibroAutor  CASCADE;
+DROP TABLE IF EXISTS Libro       CASCADE;
+DROP TABLE IF EXISTS Categoria   CASCADE;
+DROP TABLE IF EXISTS Autor       CASCADE;
+DROP TABLE IF EXISTS Editorial   CASCADE;
+DROP TABLE IF EXISTS Estudiante  CASCADE;
+DROP TABLE IF EXISTS Carrera     CASCADE;
+
+-- =========================
+-- Dimensiones / Catálogos
+-- =========================
+CREATE TABLE Carrera (
+  id      SERIAL PRIMARY KEY,
+  nombre  VARCHAR(120) NOT NULL UNIQUE
+);
+
+CREATE TABLE Estudiante (
+  id                 SERIAL PRIMARY KEY,
+  nombre             VARCHAR(120) NOT NULL,
+  email              VARCHAR(160) NOT NULL UNIQUE,
+  id_carrera         INT NOT NULL REFERENCES Carrera(id) ON DELETE RESTRICT,
+  fecha_suspension   DATE NULL
+);
+
+CREATE TABLE Editorial (
+  id      SERIAL PRIMARY KEY,
+  nombre  VARCHAR(120) NOT NULL UNIQUE,
+  ciudad  VARCHAR(120) NULL
+);
+
+CREATE TABLE Autor (
+  id            SERIAL PRIMARY KEY,
+  nombre        VARCHAR(160) NOT NULL UNIQUE,
+  nacionalidad  VARCHAR(100) NULL
+);
+
+CREATE TABLE Categoria (
+  id      SERIAL PRIMARY KEY,
+  nombre  VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE Libro (
+  id                SERIAL PRIMARY KEY,
+  titulo            VARCHAR(200) NOT NULL,
+  anio_publicacion  INT NOT NULL CHECK (anio_publicacion BETWEEN 1800 AND EXTRACT(YEAR FROM CURRENT_DATE)::INT),
+  isbn              VARCHAR(20) NOT NULL UNIQUE,
+  id_editorial      INT NULL REFERENCES Editorial(id) ON DELETE SET NULL,
+  activo            BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- Relaciones M:N
+CREATE TABLE LibroAutor (
+  id_libro  INT NOT NULL REFERENCES Libro(id) ON DELETE CASCADE,
+  id_autor  INT NOT NULL REFERENCES Autor(id) ON DELETE RESTRICT,
+  PRIMARY KEY (id_libro, id_autor)
+);
+
+CREATE TABLE LibroCategoria (
+  id_libro     INT NOT NULL REFERENCES Libro(id) ON DELETE CASCADE,
+  id_categoria INT NOT NULL REFERENCES Categoria(id) ON DELETE RESTRICT,
+  PRIMARY KEY (id_libro, id_categoria)
+);
+
+-- Sucursales y ejemplares
+CREATE TABLE Sucursal (
+  id      SERIAL PRIMARY KEY,
+  nombre  VARCHAR(120) NOT NULL UNIQUE,
+  comuna  VARCHAR(120) NOT NULL
+);
+
+CREATE TABLE Ejemplar (
+  id             SERIAL PRIMARY KEY,
+  id_libro       INT NOT NULL REFERENCES Libro(id) ON DELETE CASCADE,
+  id_sucursal    INT NOT NULL REFERENCES Sucursal(id) ON DELETE RESTRICT,
+  codigo_interno VARCHAR(40) NOT NULL UNIQUE,
+  estado         VARCHAR(15) NOT NULL CHECK (estado IN ('DISPONIBLE','PRESTADO','DANADO','BAJA'))
+);
+
+-- Prestamos, multas, reservas
+CREATE TABLE Prestamo (
+  id                SERIAL PRIMARY KEY,
+  id_ejemplar       INT NOT NULL REFERENCES Ejemplar(id) ON DELETE RESTRICT,
+  id_estudiante     INT NOT NULL REFERENCES Estudiante(id) ON DELETE RESTRICT,
+  fecha_prestamo    DATE NOT NULL,
+  fecha_compromiso  DATE NOT NULL,
+  fecha_devolucion  DATE NULL,
+  CHECK (fecha_compromiso >= fecha_prestamo),
+  CHECK (fecha_devolucion IS NULL OR fecha_devolucion >= fecha_prestamo)
+);
+
+CREATE TABLE Multa (
+  id           SERIAL PRIMARY KEY,
+  id_prestamo  INT NOT NULL REFERENCES Prestamo(id) ON DELETE CASCADE,
+  monto        NUMERIC(10,2) NOT NULL CHECK (monto >= 0),
+  pagada       BOOLEAN NOT NULL DEFAULT FALSE,
+  motivo       VARCHAR(200) NULL
+);
+
+CREATE TABLE Reserva (
+  id             SERIAL PRIMARY KEY,
+  id_libro       INT NOT NULL REFERENCES Libro(id) ON DELETE RESTRICT,
+  id_estudiante  INT NOT NULL REFERENCES Estudiante(id) ON DELETE RESTRICT,
+  fecha_reserva  DATE NOT NULL,
+  estado         VARCHAR(12) NOT NULL CHECK (estado IN ('ACTIVA','CANCELADA','ATENDIDA'))
+);
+
+-- =========================
+-- INSERTS DE DATOS
+-- =========================
+
+-- Carreras
+INSERT INTO Carrera (nombre) VALUES
+('Ingeniería Informática'),
+('Bibliotecología'),
+('Filosofía'),
+('Historia'),
+('Matemática'),
+('Sociología');
+
+-- Estudiantes (correos @unab.cl)
+INSERT INTO Estudiante (nombre, email, id_carrera) VALUES
+('Ana Torres',      'ana.torres@unab.cl',        1),
+('Bruno Díaz',      'bruno.diaz@unab.cl',        2),
+('Camila Pérez',    'camila.perez@unab.cl',      3),
+('Diego Morales',   'diego.morales@unab.cl',     3),
+('Elena Rivas',     'elena.rivas@unab.cl',       4),
+('Felipe Gómez',    'felipe.gomez@unab.cl',      1),
+('Gabriela Soto',   'gabriela.soto@unab.cl',     2),
+('Hugo Ramírez',    'hugo.ramirez@unab.cl',      5),
+('Irene Castillo',  'irene.castillo@unab.cl',    6),
+('Javier León',     'javier.leon@unab.cl',       1);
+
+-- Editoriales
+INSERT INTO Editorial (nombre, ciudad) VALUES
+('Siglo XXI',         'Santiago'),
+('Alfaomega',         'Ciudad de México'),
+('Planeta',           'Buenos Aires'),
+('Anagrama',          NULL),
+('Ediciones Vacía',   'Lima');
+
+-- Autores
+INSERT INTO Autor (nombre, nacionalidad) VALUES
+('Arturo Andrade',       'Chile'),
+('Beatriz Abarca',       NULL),
+('Carlos Cifuentes',     'Argentina'),
+('Daniela Duarte',       'Chile'),
+('Elena Escobar',        NULL),
+('Fernando Fuentes',     'España'),
+('Gabriela García',      'México');
+
+-- Categorías
+INSERT INTO Categoria (nombre) VALUES
+('Filosofía'),
+('Tecnología'),
+('Historia'),
+('Ciencia Ficción'),
+('Fantasía'),
+('Novela');
+
+-- Libros
+INSERT INTO Libro (titulo, anio_publicacion, isbn, id_editorial, activo) VALUES
+('Historia Universal I',         2010, 'ISBN-0001', 1, TRUE),
+('Historia de la Filosofía',     2015, 'ISBN-0002', 1, TRUE),
+('Introducción a la Tecnología', 2018, 'ISBN-0003', 2, TRUE),
+('Cálculo Avanzado',             2012, 'ISBN-0004', 3, TRUE),
+('La Máquina del Tiempo',        2005, 'ISBN-0005', 4, TRUE),
+('Crónicas de Fantasía',         2008, 'ISBN-0006', 3, TRUE),
+('Microhistorias',               2020, 'ISBN-0007', 2, TRUE),
+('Filosofía para Científicos',   2019, 'ISBN-0008', 1, TRUE),
+('Bases de Datos: Historia y Práctica', 2021, 'ISBN-0009', 2, TRUE),
+('Relatos Tecnológicos',         2017, 'ISBN-0010', NULL, TRUE);
+
+-- Relaciones autores/libros
+INSERT INTO LibroAutor (id_libro, id_autor) VALUES
+(1, 1), (1, 2),
+(2, 2),
+(3, 3),
+(4, 3),
+(5, 4),
+(6, 4),
+(7, 5),
+(8, 6),
+(9, 1), (9, 7),
+(10, 6);
+
+-- Relaciones categorías/libros
+INSERT INTO LibroCategoria (id_libro, id_categoria) VALUES
+(1, 3),
+(2, 1),
+(3, 2),
+(4, 2),
+(5, 4),
+(6, 5),
+(7, 3),
+(8, 1),
+(9, 3),
+(10,2);
+
+-- Sucursales
+INSERT INTO Sucursal (nombre, comuna) VALUES
+('Sucursal A', 'Las Condes'),
+('Sucursal B', 'Providencia'),
+('Sucursal C', 'Santiago Centro'),
+('Sucursal D', 'Ñuñoa'),
+('Sucursal E', 'Maipú');
+
+-- Ejemplares
+INSERT INTO Ejemplar (id_libro, id_sucursal, codigo_interno, estado) VALUES
+(1, 1, 'EJ-0001-A', 'DISPONIBLE'),
+(1, 2, 'EJ-0001-B', 'DISPONIBLE'),
+(2, 1, 'EJ-0002-A', 'PRESTADO'),
+(3, 2, 'EJ-0003-B', 'DISPONIBLE'),
+(4, 3, 'EJ-0004-C', 'DISPONIBLE'),
+(5, 3, 'EJ-0005-C', 'DISPONIBLE'),
+(6, 1, 'EJ-0006-A', 'DANADO'),
+(7, 4, 'EJ-0007-D', 'DISPONIBLE'),
+(8, 5, 'EJ-0008-E', 'BAJA'),
+(9, 2, 'EJ-0009-B', 'DISPONIBLE'),
+(10,1, 'EJ-0010-A', 'DISPONIBLE');
+
+-- Prestamos
+INSERT INTO Prestamo (id_ejemplar, id_estudiante, fecha_prestamo, fecha_compromiso, fecha_devolucion) VALUES
+(2,  1, '2025-08-01', '2025-08-15', '2025-08-10'),
+(3,  2, '2025-08-02', '2025-08-16', NULL),
+(4,  6, '2025-08-03', '2025-08-17', '2025-08-20'),
+(5,  6, '2025-08-05', '2025-08-19', NULL),
+(9,  1, '2025-08-06', '2025-08-20', '2025-08-20'),
+(7,  5, '2025-08-07', '2025-08-21', NULL),
+(1, 10, '2025-08-08', '2025-08-22', '2025-08-22');
+
+-- Multas
+INSERT INTO Multa (id_prestamo, monto, pagada, motivo) VALUES
+(2, 1500.00, FALSE, NULL),
+(4,  800.00, TRUE,  'Retraso'),
+(6, 2000.00, FALSE, NULL);
+
+-- Reservas
+INSERT INTO Reserva (id_libro, id_estudiante, fecha_reserva, estado) VALUES
+(3, 1,  '2025-07-20', 'ATENDIDA'),
+(5, 2,  '2025-07-21', 'ACTIVA'),
+(6, 3,  '2025-07-22', 'CANCELADA'),
+(2, 4,  '2025-07-23', 'ACTIVA'),
+(1, 7,  '2025-07-24', 'ACTIVA');
+
