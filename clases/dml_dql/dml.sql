@@ -57,3 +57,4 @@ RIGHT JOIN Conferencia c ON c.id = pub.conferencia_id;
 SELECT a.nombre, c.nombre
 FROM Autor a
 CROSS JOIN Conferencia c;
+
