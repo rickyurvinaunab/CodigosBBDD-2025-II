@@ -19,7 +19,7 @@ CREATE TABLE Conferencia (
 
 CREATE TABLE Paper (
     id SERIAL PRIMARY KEY,
-    titulo_completo VARCHAR(200) NOT NULL,
+    titulo VARCHAR(200) NOT NULL,
     paginas INT CHECK (paginas > 0)
 );
 
