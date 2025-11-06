@@ -1,9 +1,3 @@
-/* =========================================================
-   TALLER CLASE 10 — SOLUCIONES SQL (sin COALESCE ni EXTRACT)
-   Esquema: Sala, Pelicula, Persona, Cliente, Empleado,
-            Funcion, Funcion_Especial, Entrada
-   ========================================================= */
-
 /* -------------------------
    P1) Total de películas
    ------------------------- */
@@ -108,7 +102,7 @@ WHERE e.id_entrada IS NULL;
 /* ---------------------------------------------------------
    P10) Países de origen de películas sin funciones
    --------------------------------------------------------- */
--- Devuelve países (sin repetir) de películas no programadas en ninguna función.
+-- Devuelve países de películas no programadas en ninguna función.
 SELECT DISTINCT p.pais_origen
 FROM Pelicula p
 LEFT JOIN Funcion f
@@ -132,21 +126,3 @@ GROUP BY s.id_sala, s.capacidad
 HAVING COUNT(e.id_entrada) > 30
 ORDER BY total_entradas DESC, s.id_sala ASC;
 
-/* ---------------------------------------------------------
-   P12) Películas proyectadas en años con funciones especiales
-   --------------------------------------------------------- */
--- Evita EXTRACT: compara por año usando DATE_TRUNC al inicio de año.
--- Devuelve películas (sin repetir) que se proyectaron en al menos un año
--- que también tuvo funciones especiales.
-SELECT DISTINCT p.titulo,
-       p.pais_origen
-FROM Pelicula p
-JOIN Funcion f
-  ON f.codigo_pelicula = p.codigo_pelicula
-WHERE DATE_TRUNC('year', f.fecha) IN (
-  SELECT DISTINCT DATE_TRUNC('year', f2.fecha)
-  FROM Funcion_Especial fe
-  JOIN Funcion f2
-    ON f2.id_funcion = fe.id_funcion
-)
-ORDER BY p.titulo ASC;
